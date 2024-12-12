@@ -1,12 +1,16 @@
 import React from "react";
 import { useState } from "react";
 import { Listbox, ListboxButton, ListboxOption } from "@headlessui/react";
+import Swal from "sweetalert2";
+import axiosPublic from "../hooks/useAxiosPublic";
+
 
 const Categorize = ({ point }) => {
   const [heading, setHeading] = useState("");
   const [media, setMedia] = useState("");
   const [categories, setCategories] = useState([]);
   const [dropdownInputs, setDropdownInputs] = useState([]);
+ 
 
   const handleAddCategory = () => {
     setCategories([...categories, ""]);
@@ -37,7 +41,7 @@ const Categorize = ({ point }) => {
     setDropdownInputs([...dropdownInputs, { title: "", value: "" }]);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = {
       heading,
@@ -46,7 +50,26 @@ const Categorize = ({ point }) => {
       dropdownInputs,
       point,
     };
-    console.log(formData);
+    try {
+      const response = await axiosPublic.post("/create-categorize", formData);
+      console.log("data saved", response.data);
+
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "Your data has been saved successfully!",
+        confirmButtonText: "OK",
+      });
+    } catch (error) {
+      console.error("Error saving data:", error);
+
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong! Failed to save data.",
+        confirmButtonText: "Try Again",
+      });
+    }
   };
 
   return (
@@ -72,7 +95,7 @@ const Categorize = ({ point }) => {
                 {media || "media"}
               </ListboxButton>
               <Listbox.Options className="border rounded w-1/5">
-                {["Facebook", "Twitter", "Instagram"].map((item, index) => (
+                {["image", "video", "audio"].map((item, index) => (
                   <Listbox.Option key={index} value={item}>
                     {item}
                   </Listbox.Option>

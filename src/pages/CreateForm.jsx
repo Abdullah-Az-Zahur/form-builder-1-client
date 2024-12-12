@@ -12,7 +12,6 @@ const CreateForm = () => {
     setSelectedOption(e.target.value);
   };
 
-  console.log(point);
 
   return (
     <div className="container mx-auto my-auto mt-5">
