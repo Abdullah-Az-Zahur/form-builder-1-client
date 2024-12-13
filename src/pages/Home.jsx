@@ -1,12 +1,15 @@
-import React from 'react';
-import Navbar from '../components/Navbar';
+import React from "react";
+import Navbar from "../components/Navbar";
+import CategorizeHome from "../components/CategorizeHome";
 
 const Home = () => {
-    return (
-        <div>
-            <h3>Home</h3>
-        </div>
-    );
+  return (
+    <div>
+      <div>
+        <CategorizeHome />
+      </div>
+    </div>
+  );
 };
 
 export default Home;
