@@ -39,6 +39,7 @@ const CreateForm = () => {
               value={point}
               onChange={(e) => setPoint(e.target.value)}
               className="border-b "
+              required
             />
           </div>
         </div>

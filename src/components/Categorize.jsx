@@ -4,13 +4,11 @@ import { Listbox, ListboxButton, ListboxOption } from "@headlessui/react";
 import Swal from "sweetalert2";
 import axiosPublic from "../hooks/useAxiosPublic";
 
-
 const Categorize = ({ point }) => {
   const [heading, setHeading] = useState("");
   const [media, setMedia] = useState("");
   const [categories, setCategories] = useState([]);
   const [dropdownInputs, setDropdownInputs] = useState([]);
- 
 
   const handleAddCategory = () => {
     setCategories([...categories, ""]);
@@ -43,13 +41,16 @@ const Categorize = ({ point }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const formData = {
       heading,
       media,
-      categories,
       dropdownInputs,
       point,
     };
+
+    console.log(formData);
+
     try {
       const response = await axiosPublic.post("/create-categorize", formData);
       console.log("data saved", response.data);
@@ -73,7 +74,7 @@ const Categorize = ({ point }) => {
   };
 
   return (
-    <div>
+    <div className="container mx-auto">
       <form onSubmit={handleSubmit} className="space-y-6 p-6">
         {/* heading */}
         <div>
@@ -83,7 +84,8 @@ const Categorize = ({ point }) => {
               value={heading}
               placeholder="Description Text"
               onChange={(e) => setHeading(e.target.value)}
-              className="block w-full border p-2 rounded mt-1"
+              className="block w-1/2 border p-2 rounded mt-1 "
+              required
             />
           </label>
 
@@ -91,10 +93,10 @@ const Categorize = ({ point }) => {
           <label className=" items-center gap-2 my-7">
             Media:
             <Listbox value={media} onChange={setMedia}>
-              <ListboxButton className="block w-1/5 border p-2 rounded mt-1">
+              <ListboxButton className="block w-1/2 border p-2 rounded mt-1">
                 {media || "media"}
               </ListboxButton>
-              <Listbox.Options className="border rounded w-1/5">
+              <Listbox.Options className="border rounded w-1/2">
                 {["image", "video", "audio"].map((item, index) => (
                   <Listbox.Option key={index} value={item}>
                     {item}
@@ -109,10 +111,11 @@ const Categorize = ({ point }) => {
         <div className="space-y-4">
           <label className="block font-bold"> Category: </label>
           {categories.map((category, index) => (
-            <div key={index} className="flex space-x-2 items-center">
+            <div key={index} className="flex space-x-2 items-center w-1/2">
               <input
                 type="text"
                 value={category}
+                required
                 onChange={(e) => handleCategoryChange(index, e.target.value)}
                 className="flex-1 border p-2 rounded"
               />
@@ -138,6 +141,7 @@ const Categorize = ({ point }) => {
             <div key={index} className="flex gap-10">
               <select
                 value={input.title}
+                required
                 onChange={(e) =>
                   handleDropdownInputChange(index, "title", e.target.value)
                 }
@@ -153,6 +157,7 @@ const Categorize = ({ point }) => {
               <input
                 type="text"
                 value={input.value}
+                required
                 onChange={(e) =>
                   handleDropdownInputChange(index, "value", e.target.value)
                 }
