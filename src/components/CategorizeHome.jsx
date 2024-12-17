@@ -21,7 +21,7 @@ const CategorizeHome = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="flex flex-wrap gap-4">
+      <div className="flex flex-wrap gap-4 container mx-auto pt-20  justify-center  ">
         {data.map((item) => (
           <CategoryCard key={item._id} item={item} />
         ))}
@@ -83,10 +83,10 @@ const CategoryCard = ({ item }) => {
 
   return (
     <div className="border p-4 rounded shadow-md w-full md:w-1/3 ">
-      <h3 className="text-lg font-bold mb-2">{item.heading}</h3>
+      <h3 className="text-lg font-bold mb-2  text-center">{item.heading}</h3>
       <div className="mb-4">
-        <h4 className="font-semibold">Draggable Values</h4>
-        <div className="flex flex-wrap gap-2">
+        {/* <h4 className="font-semibold">Draggable Values</h4> */}
+        <div className="flex flex-wrap gap-2 items-center justify-center my-5">
           {availableValues.map((input) => (
             <DraggableItem
               key={input.value}

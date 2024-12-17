@@ -161,7 +161,7 @@ const Categorize = ({ point }) => {
                 onChange={(e) =>
                   handleDropdownInputChange(index, "value", e.target.value)
                 }
-                placeholder={`item ${index}`}
+                placeholder={`item ${index + 1}`}
                 className="block w-full border p-2 rounded"
               />
               <button
